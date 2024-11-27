@@ -1,4 +1,4 @@
-Shader "Custom/RevealableObject"
+Shader "CustomRevealableTexture/RevealableObject"
 {
     Properties
     {
