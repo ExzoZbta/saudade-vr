@@ -23,11 +23,9 @@
  * Content     :   Interface into real-time geometry reflection engine for native Unity
  ***********************************************************************************/
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.Runtime.InteropServices;
 using AOT;
+using UnityEngine;
 
 public class OculusSpatializerUnity : MonoBehaviour
 {
@@ -320,11 +318,11 @@ public class OculusSpatializerUnity : MonoBehaviour
 
     // * * * * * * * * * * * * *
     // Import functions
-    public delegate void AudioRaycastCallback(Vector3 origin, Vector3 direction, 
-                                              out Vector3 point, out Vector3 normal, 
+    public delegate void AudioRaycastCallback(Vector3 origin, Vector3 direction,
+                                              out Vector3 point, out Vector3 normal,
                                               System.IntPtr data);
 
-	private const string strOSP = "AudioPluginOculusSpatializer";
+    private const string strOSP = "AudioPluginOculusSpatializer";
 
     [DllImport(strOSP)]
     private static extern int OSP_Unity_AssignRaycastCallback(AudioRaycastCallback callback, System.IntPtr data);

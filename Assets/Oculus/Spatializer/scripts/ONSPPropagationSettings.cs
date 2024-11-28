@@ -23,17 +23,15 @@
  * Content     :   Exposes settings for Propagation
  ***********************************************************************************/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ONSPPropagationSettings : MonoBehaviour 
+public class ONSPPropagationSettings : MonoBehaviour
 {
     // quality as a percentage
     public float quality = 100.0f;
 
-	void Update () 
+    void Update()
     {
         ONSPPropagation.Interface.SetPropagationQuality(quality / 100.0f);
-	}
+    }
 }

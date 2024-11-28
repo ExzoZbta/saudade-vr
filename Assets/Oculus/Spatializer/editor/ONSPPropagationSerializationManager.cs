@@ -23,12 +23,11 @@
  * Content     :   Functionality for serializing Oculus Audio geometry
  ***********************************************************************************/
 
-using UnityEditor;
-using UnityEditor.Build;
-using UnityEngine;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum PlayModeState
 {

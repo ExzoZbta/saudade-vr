@@ -19,7 +19,6 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 public class ONSPAudioPluginUpdaterStub : ScriptableObject
 {

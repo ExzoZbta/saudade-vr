@@ -18,15 +18,10 @@
  * limitations under the License.
  */
 
-using UnityEngine;
-using UnityEditor;
-using UnityEditor.Callbacks;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.IO;
-using System.Diagnostics;
+using UnityEditor;
+using UnityEngine;
 
 [InitializeOnLoad]
 class ONSPAudioPluginUpdater
@@ -192,7 +187,7 @@ class ONSPAudioPluginUpdater
                         File.Delete(newX64PluginPath);
                         File.Delete(newX64PluginPath + ".meta");
                     }
-                    catch (Exception e) 
+                    catch (Exception e)
                     {
                         UnityEngine.Debug.LogWarning("Exception happened when deleting new spatializer plugin: " + e.Message);
                     }
@@ -288,7 +283,7 @@ class ONSPAudioPluginUpdater
                         UnityEngine.Debug.LogWarning("Unable to rename the new spatializer plugin: " + e.Message);
                     }
                 }
-                
+
                 if (upgradeDone)
                 {
                     if (unityRunningInBatchmode

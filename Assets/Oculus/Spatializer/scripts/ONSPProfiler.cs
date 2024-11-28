@@ -23,11 +23,8 @@
  * Content     :   Use this to attach to the Oculus Audio Profiler tool
  ***********************************************************************************/
 
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Networking;
 
 
 public class ONSPProfiler : MonoBehaviour
@@ -51,9 +48,9 @@ public class ONSPProfiler : MonoBehaviour
         ONSP_SetProfilerEnabled(profilerEnabled);
     }
 
-	// Import functions
+    // Import functions
     public const string strONSPS = "AudioPluginOculusSpatializer";
-	
+
     [DllImport(strONSPS)]
     private static extern int ONSP_SetProfilerEnabled(bool enabled);
     [DllImport(strONSPS)]
