@@ -128,6 +128,15 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    public void stopChase()
+    {
+        walking = true;
+        chasing = false;
+        StopCoroutine("chaseRoutine");
+        randNum = Random.Range(0, destinationAmount);
+        currentDest = destinations[randNum];
+    }
+
     IEnumerator stayIdle()
 
     {
@@ -148,11 +157,7 @@ public class EnemyAI : MonoBehaviour
         chaseTime = Random.Range(minChaseTime, maxChaseTime);
         yield return new WaitForSeconds(chaseTime);
 
-        walking = true;
-        chasing = false;
-
-        randNum = Random.Range(0, destinations.Count);
-        currentDest = destinations[randNum];
+        stopChase();
 
     }
 
