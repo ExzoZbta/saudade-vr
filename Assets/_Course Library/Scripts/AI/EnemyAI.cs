@@ -18,10 +18,11 @@ public class EnemyAI : MonoBehaviour
     public Transform player;
     Transform currentDest;
     Vector3 dest;
-    int randNum;
-    public int destinationAmount;
     public Vector3 rayCastOffset;
     public string deathScene;
+    public float aiDistance;
+
+    public GameObject hideText, stopHideText;
 
 
 
@@ -31,8 +32,7 @@ public class EnemyAI : MonoBehaviour
 
         walking = true;
 
-        randNum = Random.Range(0, destinations.Count);
-        currentDest = destinations[randNum];
+        currentDest = destinations[Random.Range(0, destinations.Count)];
 
     }
 
@@ -42,6 +42,7 @@ public class EnemyAI : MonoBehaviour
 
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
+        aiDistance = Vector3.Distance(player.position, this.transform.position);
 
         if (Physics.Raycast(transform.position + rayCastOffset, direction, out hit, sightDistance))
 
@@ -75,9 +76,7 @@ public class EnemyAI : MonoBehaviour
             aiAnim.ResetTrigger("idle");
             aiAnim.SetTrigger("sprint");
 
-            float distance = Vector3.Distance(player.position, ai.transform.position);
-
-            if (distance <= catchDistance)
+            if (aiDistance <= catchDistance)
 
             {
 
@@ -85,6 +84,8 @@ public class EnemyAI : MonoBehaviour
 
                 aiAnim.ResetTrigger("walk");
                 aiAnim.ResetTrigger("idle");
+                hideText.SetActive(false);
+                stopHideText.SetActive(false);
                 aiAnim.ResetTrigger("sprint");
                 aiAnim.SetTrigger("jumpscare");
 
@@ -133,8 +134,7 @@ public class EnemyAI : MonoBehaviour
         walking = true;
         chasing = false;
         StopCoroutine("chaseRoutine");
-        randNum = Random.Range(0, destinationAmount);
-        currentDest = destinations[randNum];
+        currentDest = destinations[Random.Range(0, destinations.Count)];
     }
 
     IEnumerator stayIdle()
@@ -146,8 +146,7 @@ public class EnemyAI : MonoBehaviour
 
         walking = true;
 
-        randNum = Random.Range(0, destinations.Count);
-        currentDest = destinations[randNum];
+        currentDest = destinations[Random.Range(0, destinations.Count)];
 
     }
 

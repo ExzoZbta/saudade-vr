@@ -13,11 +13,19 @@ public class HidingPlace : MonoBehaviour
     bool interactable, hiding;
     public float loseDistance;
 
+    public InputActionReference hideAction;
+    public InputActionReference unhideAction;
+
 
     private void Start()
     {
         interactable = false;
         hiding = false;
+
+        if (hideAction != null)
+            hideAction.action.Enable();
+        if (unhideAction != null)
+            unhideAction.action.Enable();
     }
     private void OnTriggerStay(Collider other)
     {
@@ -26,6 +34,7 @@ public class HidingPlace : MonoBehaviour
             hideText.SetActive(true);
             interactable = true;
         }
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -37,36 +46,41 @@ public class HidingPlace : MonoBehaviour
     }
     private void Update()
     {
-        if (interactable == true)
+        if (interactable && hideAction != null && hideAction.action.triggered)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            hideText.SetActive(false);
+            hidingPlayer.SetActive(true);
+            float distance = Vector3.Distance(monsterTransform.position, normalPlayer.transform.position);
+
+            if (distance > loseDistance)
             {
-                hideText.SetActive(false);
-                hidingPlayer.SetActive(true);
-                float distance = Vector3.Distance(monsterTransform.position, normalPlayer.transform.position);
-                if (distance > loseDistance)
+                if (monsterScript.chasing == true)
                 {
-                    if (monsterScript.chasing == true)
-                    {
-                        monsterScript.stopChase();
-                    }
+                    monsterScript.stopChase();
                 }
-                stopHideText.SetActive(true);
-                hiding = true;
-                normalPlayer.SetActive(false);
-                interactable = false;
             }
+
+            stopHideText.SetActive(true);
+            hiding = true;
+            normalPlayer.SetActive(false);
+            interactable = false;
         }
-        if (hiding == true)
+        if (hiding && unhideAction != null && unhideAction.action.triggered)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                stopHideText.SetActive(false);
-                normalPlayer.SetActive(true);
-                hidingPlayer.SetActive(false);
-                hiding = false;
-            }
+            stopHideText.SetActive(false);
+            normalPlayer.SetActive(true);
+            hidingPlayer.SetActive(false);
+            hiding = false;
         }
     }
-    
+
+    private void OnDisable()
+    {
+        // Disable input actions when the script is disabled
+        if (hideAction != null)
+            hideAction.action.Disable();
+        if (unhideAction != null)
+            unhideAction.action.Disable();
+    }
+
 }
