@@ -12,9 +12,12 @@ public class HidingPlace : MonoBehaviour
     public Transform monsterTransform;
     bool interactable, hiding;
     public float loseDistance;
+    public RoomDetector detector;
 
     public InputActionReference hideAction;
     public InputActionReference unhideAction;
+
+    public AudioSource hideSound, stopHideSound;
 
 
     private void Start()
@@ -29,10 +32,15 @@ public class HidingPlace : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("MainCamera") && detector.inTrigger)
         {
             hideText.SetActive(true);
             interactable = true;
+        }
+        else if (detector.inTrigger == false)
+        {
+            hideText.SetActive(false);
+            interactable = false;
         }
 
     }
@@ -49,6 +57,7 @@ public class HidingPlace : MonoBehaviour
         if (interactable && hideAction != null && hideAction.action.triggered)
         {
             hideText.SetActive(false);
+            hideSound.Play();
             hidingPlayer.SetActive(true);
             float distance = Vector3.Distance(monsterTransform.position, normalPlayer.transform.position);
 
@@ -68,6 +77,7 @@ public class HidingPlace : MonoBehaviour
         if (hiding && unhideAction != null && unhideAction.action.triggered)
         {
             stopHideText.SetActive(false);
+            stopHideSound.Play();
             normalPlayer.SetActive(true);
             hidingPlayer.SetActive(false);
             hiding = false;
