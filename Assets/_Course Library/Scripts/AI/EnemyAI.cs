@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     Transform currentDest;
     Vector3 dest;
     public Vector3 rayCastOffset;
-    public string deathScene;
+    public string deathScene = "New Scene";
     public float aiDistance;
 
     public GameObject hideText, stopHideText;
@@ -193,7 +193,7 @@ public class EnemyAI : MonoBehaviour
 
     {
         yield return new WaitForSeconds(jumpscareTime);
-        SceneManager.LoadScene(deathScene);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
 
