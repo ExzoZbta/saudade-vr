@@ -6,7 +6,7 @@
             "id": "426fa215-3d89-4cb4-9ae1-fa4b5fc98271",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Pickup",
                     "type": "Button",
                     "id": "f8e19af9-f2c9-4e9d-9431-eefd03d759c3",
                     "expectedControlType": "Button",
@@ -37,11 +37,11 @@
                 {
                     "name": "",
                     "id": "8f1bd9f0-4bbf-4bc5-9e7a-179236ba705a",
-                    "path": "",
+                    "path": "<XRController>{RightHand}/{GripButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Pickup",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
