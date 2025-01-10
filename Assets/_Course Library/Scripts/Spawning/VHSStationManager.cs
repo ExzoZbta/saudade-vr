@@ -19,7 +19,6 @@ public class VHSStationManager : MonoBehaviour
 
     [Header("UI References")]
     public TextMeshProUGUI progressText;
-    public Image progressBar;
 
     [Header("Prefabs and Spawn Points")]
     public GameObject completeStationPrefab; // The complete VHS station setup prefab
@@ -43,6 +42,7 @@ public class VHSStationManager : MonoBehaviour
 
     private void Start()
     {
+        collectedTapes.Clear();
         // Only spawn the first station at game start
         SpawnStation(TapeType.First);
         UpdateUI();
@@ -50,9 +50,11 @@ public class VHSStationManager : MonoBehaviour
 
     public void CollectTape(TapeType tapeType)
     {
+        Debug.Log($"Collecting tape: {tapeType}");
         if (!collectedTapes.Contains(tapeType))
         {
             collectedTapes.Add(tapeType);
+            Debug.Log($"Total tapes collected: {collectedTapes.Count}");
             HandleTapeCollection(tapeType);
             UpdateUI();
         }
@@ -137,8 +139,14 @@ public class VHSStationManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        float progress = (float)collectedTapes.Count / 6f;
-        progressBar.fillAmount = progress;
-        progressText.text = $"VHS Tapes: {collectedTapes.Count}/6";
+        if (progressText != null)
+        {
+            progressText.SetText($"Tapes: {collectedTapes.Count}/6");
+            Debug.Log($"Updated UI text to: VHS Tapes: {collectedTapes.Count}/6"); // Debug log
+        }
+        else
+        {
+            Debug.LogError("Progress Text is null when trying to update UI!");
+        }
     }
 }
