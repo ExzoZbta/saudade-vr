@@ -9,3 +9,6 @@ Central to Saudade is its adaptive antagonist—a figure of horror that dynamica
 
 ## [Poster Presentation](https://github.com/ExzoZbta/saudade-vr/blob/main/website/img/poster.pptx.pdf)
 ![Img of poster](https://i.imgur.com/e0pGFCf.png)
+
+## [Thesis](https://github.com/ExzoZbta/saudade-vr/blob/main/website/img/thesis.pdf)
+![Img of thesis](https://i.imgur.com/i22YvQa.png)
