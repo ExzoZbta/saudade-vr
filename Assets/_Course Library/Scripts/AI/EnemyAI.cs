@@ -25,6 +25,15 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject hideText, stopHideText;
 
+    // Stuck detection variables
+    private Vector3 lastPosition;
+    private float stuckThreshold = 2.0f; // Minimum distance to move in stuckCheckInterval
+    private float stuckCheckInterval = 0.5f; // How often to check if stuck
+    private float stuckTimer = 0f;
+    private bool isStuck = false;
+    private float unstuckWiggleRadius = 3.0f; // How far to adjust path when stuck
+    private float pathAdjustmentDuration = 3.0f; // How long to follow adjusted path
+    private bool isAdjustingPath = false;
 
 
     void Start()
@@ -35,6 +44,8 @@ public class EnemyAI : MonoBehaviour
 
         currentDest = destinations[Random.Range(0, destinations.Count)];
 
+        lastPosition = transform.position;
+
     }
 
     void Update()
@@ -44,6 +55,14 @@ public class EnemyAI : MonoBehaviour
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
         aiDistance = Vector3.Distance(player.position, this.transform.position);
+
+        // Check if agent is stuck
+        stuckTimer += Time.deltaTime;
+        if (stuckTimer >= stuckCheckInterval)
+        {
+            CheckIfStuck();
+            stuckTimer = 0f;
+        }
 
         if (Physics.Raycast(transform.position + rayCastOffset, direction, out hit, detectionDistance))
 
@@ -153,6 +172,32 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    // Check if the agent is stuck by comparing current position to last position
+    private void CheckIfStuck()
+    {
+        // Only check for stuck if  actually trying to move
+        if ((walking || chasing) && ai.speed > 0 && ai.remainingDistance > ai.stoppingDistance)
+        {
+            float distanceMoved = Vector3.Distance(transform.position, lastPosition);
+
+            // If it hasn't moved enough, consider the agent stuck
+            if (distanceMoved < stuckThreshold)
+            {
+                if (!isStuck)
+                {
+                    isStuck = true;
+                    StartCoroutine(UnstuckRoutine());
+                }
+            }
+            else
+            {
+                isStuck = false;
+            }
+        }
+
+        lastPosition = transform.position;
+    }
+
     public void stopChase()
     {
         walking = true;
@@ -195,6 +240,67 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(jumpscareTime);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+    }
+
+    // Handle getting unstuck by adjusting the path
+    private IEnumerator UnstuckRoutine()
+    {
+        if (isAdjustingPath)
+            yield break;
+
+        isAdjustingPath = true;
+
+        // Store original destination
+        Vector3 originalDestination = ai.destination;
+
+        // Create a temporary destination to unstuck the agent
+        // Find a point some distance away from current position, but still on the NavMesh
+        Vector3 randomDirection = Random.insideUnitSphere * unstuckWiggleRadius;
+        randomDirection.y = 0;
+
+        // Project the point onto the NavMesh
+        NavMeshHit hit;
+        Vector3 temporaryDestination;
+
+        if (NavMesh.SamplePosition(transform.position + randomDirection, out hit, unstuckWiggleRadius, NavMesh.AllAreas))
+        {
+            temporaryDestination = hit.position;
+        }
+        else
+        {
+            // If we couldn't find a valid position, try a different direction
+            randomDirection = -randomDirection;
+            if (NavMesh.SamplePosition(transform.position + randomDirection, out hit, unstuckWiggleRadius, NavMesh.AllAreas))
+            {
+                temporaryDestination = hit.position;
+            }
+            else
+            {
+                // If all else fails, just stay put
+                temporaryDestination = transform.position;
+            }
+        }
+
+        // Set new temporary destination
+        ai.destination = temporaryDestination;
+
+        // Wait for path adjustment duration
+        yield return new WaitForSeconds(pathAdjustmentDuration);
+
+        // Return to original destination if still in the same state
+        if ((walking || chasing) && ai.isActiveAndEnabled)
+        {
+            if (walking)
+            {
+                ai.destination = currentDest.position;
+            }
+            else if (chasing)
+            {
+                ai.destination = player.position;
+            }
+        }
+
+        isAdjustingPath = false;
     }
 
 }

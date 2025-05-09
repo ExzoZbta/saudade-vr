@@ -15,10 +15,10 @@ TagManager:
   - Revealable
   - Interactable
   - Body
-  - 
-  - 
-  - 
-  - 
+  - NonInteractable
+  - VisibleToPlayer
+  - VisibleToMirror
+  - Floor
   - 
   - 
   - 
