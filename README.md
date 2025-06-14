@@ -16,7 +16,8 @@ Central to Saudade is its adaptive antagonist—a figure of horror that dynamica
 ## Footage & Screenshots
 ![exhibition](https://i.imgur.com/UmbdSNv.jpeg)
 ![exhibition with actor](https://i.imgur.com/JIxlOvb.jpeg)
-- that's me!
+ - that's me!
+  
 ![gameplay screenshot1](https://i.imgur.com/Apuws6f.jpeg)
 ![gameplay screenshot2](https://i.imgur.com/yabyhKD.jpeg)
 ![gameplay screenshot3](https://i.imgur.com/3XWJGBs.jpeg)
