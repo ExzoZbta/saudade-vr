@@ -12,3 +12,14 @@ Central to Saudade is its adaptive antagonist—a figure of horror that dynamica
 
 ## [Thesis](https://github.com/ExzoZbta/saudade-vr/blob/main/website/thesis.pdf)
 ![Img of thesis](https://i.imgur.com/i22YvQa.png)
+
+## Footage & Screenshots
+![exhibition](https://i.imgur.com/UmbdSNv.jpeg)
+![exhibition with actor](https://i.imgur.com/JIxlOvb.jpeg)
+- that's me!
+![gameplay screenshot1](https://i.imgur.com/Apuws6f.jpeg)
+![gameplay screenshot2](https://i.imgur.com/yabyhKD.jpeg)
+![gameplay screenshot3](https://i.imgur.com/3XWJGBs.jpeg)
+![gameplay screenshot4](https://i.imgur.com/1MDqVvo.jpeg)
+![gameplay screenshot5](https://i.imgur.com/Ejd1nRB.jpeg)
+
